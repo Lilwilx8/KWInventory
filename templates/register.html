@@ -33,25 +33,25 @@
                 </span>
 
                 <div class="wrap-input100 validate-input">
-                    <input class="input100" type="text" name="username">
+                    <input class="input100" type="text" name="{{ form.username.name }}">
                     <span class="focus-input100" data-placeholder="Usuario"></span>
                 </div>
                 <div class="wrap-input100 validate-input">
-                    <input class="input100" type="email" name="email">
+                    <input class="input100" type="email" name="{{ form.email.name }}">
                     <span class="focus-input100" data-placeholder="Email"></span>
                 </div>
                 <div class="wrap-input100 validate-input">
                     <span class="btn-show-pass">
                         <i class="zmdi zmdi-eye"></i>
                     </span>
-                    <input class="input100" type="password" name="password1">
+                    <input class="input100" type="password" name="{{ form.password1.name }}">
                     <span class="focus-input100" data-placeholder="Contraseña"></span>
                 </div>
                 <div class="wrap-input100 validate-input">
                     <span class="btn-show-pass">
                         <i class="zmdi zmdi-eye"></i>
                     </span>
-                    <input class="input100" type="password" name="password2">
+                    <input class="input100" type="password" name="{{ form.password2.name }}">
                     <span class="focus-input100" data-placeholder="Confirma tu contraseña"></span>
                 </div>
                 <div>

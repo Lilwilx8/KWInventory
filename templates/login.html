@@ -2,7 +2,7 @@
 <html>
 <head>
 
-    {% load static  %}
+    {% load static %}
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" lang="es">
     <link rel="stylesheet" type="text/css" href="{% static 'Login/vendor/bootstrap/css/bootstrap.min.css' %}">
@@ -23,9 +23,9 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100">
-            <form class="login100-form validate-form"  method="post">
+            <form class="login100-form validate-form" method="post">
                 {% csrf_token %}
-                        <span class="login100-form-title p-b-26">
+                <span class="login100-form-title p-b-26">
                             KWInventory
                         </span>
                 <span class="login100-form-title p-b-26">
@@ -58,6 +58,10 @@
 
                     <a class="txt2" href="register">
                         Registrarse
+                    </a>
+                    <br>
+                    <a class="txt2" href="{% url 'password_reset' %}">
+                        Recuperar contraseña
                     </a>
                 </div>
             </form>

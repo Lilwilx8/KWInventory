@@ -32,7 +32,22 @@
                             <img width="50%" style="" src="{% static 'Login/img/kiwi.png' %}" alt="kiwi">
                 </span>
 
+                <div class="text-xl-center">
+                    {% if messages %}
+                    {% for message in messages %}
+                        <div class="notificacion {{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {{ form.username.errors }}
+                {{ form.email.errors }}
+                {{ form.password1.errors }}
+                {{ form.password2.errors }}
+                </div>
+
                 <div class="wrap-input100 validate-input">
+
                     <input class="input100" type="text" name="{{ form.username.name }}">
                     <span class="focus-input100" data-placeholder="Usuario"></span>
                 </div>
@@ -65,14 +80,6 @@
                         <a href="/" class="login100-form-btn btn btn-dark" id="submit">volver</a>
                     </div>
                 </div>
-
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="notificacion {{ message.tags }}">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
             </form>
         </div>
     </div>

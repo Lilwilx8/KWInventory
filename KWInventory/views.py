@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import logout as do_logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegisterForm
@@ -6,6 +6,11 @@ from .forms import UserRegisterForm
 
 def login(request):
     return render(request, "login.html")
+
+
+def logout(request):
+    do_logout(request)
+    return redirect('Login')
 
 
 def register(request):

@@ -25,6 +25,7 @@ urlpatterns = [
     path('Inventory/', include('Inventory.urls')),
     path('', LoginView.as_view(template_name='login.html'), name='Login'),
     path('register/', views.register, name='register'),
+    path('logout', views.logout, name='Logout'),
 
     path('reset/password_reset', PasswordResetView.as_view(template_name='Registration/password_reset_form.html',
                                                            email_template_name="registration/password_reset_email.html")

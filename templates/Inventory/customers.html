@@ -25,7 +25,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <title>Listar Productos</title>
+    <title>Listar Clientes</title>
 </head>
 <body>
 <br>
@@ -42,12 +42,12 @@
     <div class="row mt-2">
         <div class="col-sm">
             <br>
-            <table id="ListaProducto">
+            <table id="ListaCliente">
                 <thead>
                 <tr>
-                    <th scope="col" colspan="4" class="text-center"><h3>Productos</h3></th>
+                    <th scope="col" colspan="4" class="text-center"><h3>Clientes</h3></th>
                     <th scope="col">
-                        <a href="createProducts">
+                        <a href="createCustomers">
                             <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill"
                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -58,40 +58,33 @@
 
                 </tr>
                 <tr>
-                    <th>Id</th>
+                    <th>Documento</th>
                     <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Stock</th>
-                    <th>Categoria</th>
-                    <th>Marca</th>
-                    <th>Estado</th>
-                    <th>Peso</th>
+                    <th>Apellido</th>
+                    <th>Telefono</th>
                     <th>Acciones</th>
                 </tr>
 
                 </thead>
                 <tbody>
-                {% for pro in producto %}
+                {% for cli in cliente %}
                     <tr>
-                    <td>{{ pro.IdProducto }}</td>
-                    <td>{{ pro.Nombre }}</td>
-                    <td>{{ pro.Precio }}</td>
-                    <td>{{ pro.Stock }}</td>
-                    <td>{{ pro.Categoria }}</td>
-                    <td>{{ pro.Marca }}</td>
-                    <td>{{ pro.Estado }}</td>
-                    <td>{{ pro.Gramage }}</td>
+                    <td>{{ cli.Documento }}</td>
+                    <td>{{ cli.Nombre }}</td>
+                    <td>{{ cli.Apellido }}</td>
+                    <td>{{ cli.Telefono }}</td>
+
 
 
                     <td>
-                        <a href="{% url 'EditProducts' pro.IdProducto %}">
+                        <a href="{% url 'EditCustomers' cli.IdCliente %}">
                             <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-pen-fill"
                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                       d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"></path>
                             </svg>
                         </a>
-                        <a href="{% url 'DeleteProducts' pro.IdProducto %}" class="ml-1">
+                        <a href="{% url 'DeleteCustomers' cli.IdCliente %}" class="ml-1">
                             <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-trash-fill"
                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -110,7 +103,7 @@
 </div>
 <script>
     $(document).ready(function () {
-        $('#ListaProducto').DataTable({
+        $('#ListaCliente').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 'pdf', 'print'

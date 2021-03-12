@@ -57,3 +57,19 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.Nombre
+
+
+class Cliente(models.Model):
+    IdCliente = models.AutoField(primary_key=True)
+    Documento = models.IntegerField(null=False)
+    Nombre = models.CharField(max_length=50)
+    Apellido = models.CharField(max_length=50)
+    Telefono = models.CharField(max_length=25)
+
+    class Meta:
+        verbose_name = 'Cliente'
+        verbose_name_plural = 'Clientes'
+        ordering = ['Nombre']
+
+    def __str__(self):
+        return self.Nombre

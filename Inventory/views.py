@@ -1,38 +1,61 @@
 from django.shortcuts import render, redirect
+from django.views import View
+
 from .forms import ProductoForm, CLienteForm, VentaForm
 from .models import Producto, Cliente, Venta, VentaProducto
 
 
 # Create your views here.
+#
+# class products(View):
+#     model = Producto
+#     form_clas = ProductoForm
+#     template_name = 'Inventory/products.html'
+#
+#     def get_queryset(self):
+#         return self.model.objects.first(estado = True)
+#
+#     def get_context_data(self, **kwargs):
+#         contexto = {}
+#         contexto['productos'] = self.get_queryset()
+#         contexto['from'] = self.form_clas
+#         return contexto
+#
+#     def get(self, request, *args, **kwargs):
+#         return render(request, self.template_name, self.get_context_data())
+#
+#     def post(self, request, *args, **kwargs):
+#         form = self.form_clas(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('Products')
+#         else:
+#             form = self.form_clas()
+#             return render(request, self.template_name, self.get_context_data())
+
+
 
 def products(request):
     producto = Producto.objects.all()
+    form = ProductoForm()
     contexto = {
+        'form': form,
         'producto': producto
     }
     print(producto)
-    return render(request, 'Inventory/products.html', contexto)
-
-
-def CreateProduct(request):
-    form = ProductoForm()
-    contexto = {
-        'form': form
-    }
-
     if request.method == 'POST':
         form = ProductoForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('Products')
-
-    return render(request, 'Inventory/CreateProduct.html', contexto)
+    return render(request, 'Inventory/products.html', contexto)
 
 
 def EditProduct(request, Id):
     producto = Producto.objects.get(IdProducto=Id)
     if request.method == 'GET':
         form = ProductoForm(instance=producto)
+
         contexto = {
             'form': form
         }
@@ -52,28 +75,19 @@ def DeleteProduct(request, Id):
 
 
 def customers(request):
+    form = CLienteForm
     cliente = Cliente.objects.all()
     contexto = {
-        'cliente': cliente
-    }
-    print(cliente)
-    return render(request, 'Inventory/customers.html', contexto)
-
-
-def CreateCustomer(request):
-    form = CLienteForm
-    contexto = {
+        'cliente': cliente,
         'form': form
     }
-
     if request.method == 'POST':
         form = CLienteForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('Customers')
-
-    return render(request, 'Inventory/CreateCustomer.html', contexto)
-
+    print(cliente)
+    return render(request, 'Inventory/customers.html', contexto)
 
 def EditCustomer(request, Id):
     cliente = Cliente.objects.get(IdCliente=Id)
@@ -99,26 +113,18 @@ def DeleteCustomer(request, Id):
 
 def sales(request):
     venta = Venta.objects.all()
-    contexto = {
-        'venta': venta,
-    }
-    print(venta)
-    return render(request, 'Inventory/sales.html', contexto)
-
-
-def CreateSale(request):
     form = VentaForm
     contexto = {
+        'venta': venta,
         'form': form
     }
-
     if request.method == 'POST':
         form = VentaForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('Sales')
-
-    return render(request, 'Inventory/CreateSale.html', contexto)
+    print(venta)
+    return render(request, 'Inventory/sales.html', contexto)
 
 
 def EditSale(request, Id):

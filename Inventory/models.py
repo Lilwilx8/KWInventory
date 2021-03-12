@@ -73,3 +73,27 @@ class Cliente(models.Model):
 
     def __str__(self):
         return self.Nombre
+
+class Venta(models.Model):
+    IdVenta = models.AutoField(primary_key=True)
+    Cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, null=False)
+    Fecha = models.DateTimeField(auto_now_add=True)
+    Valor = models.IntegerField()
+
+    class Meta:
+        verbose_name = 'Venta'
+        verbose_name_plural = 'Ventas'
+
+    def __str__(self):
+        return str(self.IdVenta)
+
+class VentaProducto(models.Model):
+    Venta = models.ForeignKey(Venta, on_delete=models.CASCADE)
+    Producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    Cantidad = models.IntegerField(default=1)
+
+    def __str__(self):
+        return str(self.Venta)
+
+
+

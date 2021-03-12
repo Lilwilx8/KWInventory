@@ -5,10 +5,18 @@
     <title>Title</title>
 </head>
 <body>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Registrar Cliente</title>
+</head>
+<body>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Registrar</button>
 </form>
+
 </body>
 </html>

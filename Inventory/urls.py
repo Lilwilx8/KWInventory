@@ -10,5 +10,8 @@ urlpatterns = [
     path('createCustomers', views.CreateCustomer, name="CreateCustomers"),
     path('editCustomer/<int:Id>', views.EditCustomer, name="EditCustomers"),
     path('deleteCustomer/<int:Id>', views.DeleteCustomer, name="DeleteCustomers"),
-
+    path('sales', views.sales, name="Sales"),
+    path('createSales', views.CreateSale, name="CreateSales"),
+    path('editSale/<int:Id>', views.EditSale, name="EditSales"),
+    path('deleteSale/<int:Id>', views.DeleteSale, name="DeleteSales"),
 ]

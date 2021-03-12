@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import ProductoForm, CLienteForm
-from .models import Producto, Cliente
+from .forms import ProductoForm, CLienteForm, VentaForm
+from .models import Producto, Cliente, Venta, VentaProducto
 
 
 # Create your views here.
@@ -95,3 +95,51 @@ def DeleteCustomer(request, Id):
     cliente = Cliente.objects.get(IdCliente=Id)
     cliente.delete()
     return redirect('Customers')
+
+
+def sales(request):
+    venta = Venta.objects.all()
+    contexto = {
+        'venta': venta,
+    }
+    print(venta)
+    return render(request, 'Inventory/sales.html', contexto)
+
+
+def CreateSale(request):
+    form = VentaForm
+    contexto = {
+        'form': form
+    }
+
+    if request.method == 'POST':
+        form = VentaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Sales')
+
+    return render(request, 'Inventory/CreateSale.html', contexto)
+
+
+def EditSale(request, Id):
+    venta = Venta.objects.get(IdVenta=Id)
+    if request.method == 'GET':
+        form = VentaForm(instance=venta)
+        contexto = {
+            'form': form
+        }
+    else:
+        form = VentaForm(request.POST, instance=venta)
+        if form.is_valid():
+            form.save()
+            return redirect('Sales')
+
+    return render(request, 'Inventory/EditSale.html', contexto)
+
+
+def DeleteSale(request, Id):
+    venta = Venta.objects.get(IdVenta=Id)
+    venta.delete()
+    return redirect('Sales')
+
+

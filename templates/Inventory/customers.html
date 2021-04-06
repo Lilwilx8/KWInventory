@@ -16,8 +16,8 @@
             <tr>
                 <th scope="col" colspan="4" class="text-center"><h3>Clientes</h3></th>
                 <th scope="col">
-                    <button class="btn btn-success btn-circle" type="button" data-bs-toggle="modal"
-                            data-bs-target="#AgregarClientes">
+                    <button class="btn btn-success btn-circle" type="button"
+                            onclick="abrir_modal_creacion('{% url "AddCustomer" %}')">
                         <i class="fas fa-plus"></i>
                     </button>
                 </th>
@@ -33,7 +33,7 @@
 
             </thead>
             <tbody>
-            {% for cli in cliente %}
+            {% for cli in clientes %}
                 <tr>
                 <th scope="row">{{ cli.Documento }}</th>
                 <td>{{ cli.Nombre }}</td>
@@ -42,11 +42,11 @@
 
                 <td>
                     <button class="btn btn-success btn-circle"
-                            onclick="abrir_modal_edicion1('{% url 'EditCustomers' cli.IdCliente %}')">
+                            onclick="abrir_modal_edicion('{% url 'UpdateCustomer' cli.IdCliente %}')">
                         <i class="fas fa-pen"> </i>
                     </button>
 
-                    <a href="{% url 'DeleteCustomers' cli.IdCliente %}" class="ml-1">
+                    <a href="{% url 'DeleteCustomer' cli.IdCliente %}" class="ml-1">
                         <button class="btn btn-success btn-circle" type="button">
                             <i class="fas fa-trash"> </i>
                         </button>
@@ -60,38 +60,30 @@
             </tbody>
         </table>
     </div>
-    <div class="modal fade" id="AgregarClientes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Añadir Clientes</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Atras</button>
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
-        <!-- Modal -->
-    <div class="modal fade" id="edicion1" role="dialog">
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal" role="dialog">
 
     </div>
 {% endblock %}
 
 {% block extrajs %}
     <script type="text/javascript">
-    var $ = jQuery.noConflict();
-        function abrir_modal_edicion1(url) {
-            $('#edicion1').load(url, function () {
+        var $ = jQuery.noConflict();
+
+        function abrir_modal_edicion(url) {
+            $('#modal').load(url, function () {
+                $(this).modal('show');
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        var $ = jQuery.noConflict();
+
+        function abrir_modal_creacion(url) {
+            $('#modal').load(url, function () {
                 $(this).modal('show');
             });
         }

@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="{% static 'Login/css/Bootstrap.css' %}">
     <script src="https://kit.fontawesome.com/db680273fa.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'Login/css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Login/css/main.css' %}">
     <title>
         {% block title %}
         {% endblock %}
@@ -21,7 +23,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{% url 'Home' %}">
             <img src="{% static 'Login/img/kiwi.png' %}" alt="" width="60">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -45,26 +47,29 @@
                 </li>
 
             </ul>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <div>
-                    <form class="d-flex" method="get">
-                        <input size="50" class="form-control me-3" type="search" placeholder="Buscar"
-                               aria-label="Search">
-                        <button class="btn btn-success" type="submit">Buscar</button>
-                    </form>
-                </div>
-            </ul>
+
+
+                <form class="d-flex" method="get" style="margin-right: 35%">
+                    <input size="50" class="form-control me-3" type="search" placeholder="Buscar"
+                           aria-label="Search">
+                    <button class="btn btn-success" type="submit">Buscar</button>
+                </form>
+
 
             <div>
-                <a href="" style="text-decoration: none" >
-                        <i class="fas fa-user"></i>
-                        {{ user.get_username }}
-                </a>
-                <a href="{% url 'Logout'  %}">
-                    <button class="btn btn-danger btn-circle">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </button>
-                </a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"  role="button"
+                           data-bs-toggle="dropdown">
+                            <i class="fas fa-user"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="">
+                            <li><a class="dropdown-item" href="{% url 'User' %}">Perfil</a></li>
+                            <li><a class="dropdown-item" href="admin" target="_blank" >Administración</a></li>
+                            <li><a class="dropdown-item" href=" {% url 'Logout' %}" style="color: rgb(250,50,50);">Log out</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
 
 

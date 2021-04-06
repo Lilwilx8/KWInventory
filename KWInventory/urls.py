@@ -16,6 +16,7 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
     PasswordResetCompleteView
+from django.contrib.auth.decorators import login_required
 from django.urls import path, include, re_path
 
 from KWInventory import views
@@ -24,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('Inventory/', include('Inventory.urls')),
     path('', LoginView.as_view(template_name='login.html'), name='Login'),
-    path('register/', views.register, name='register'),
+    path('register/', login_required(views.register) , name='register'),
     path('logout', views.logout, name='Logout'),
 
     path('reset/password_reset', PasswordResetView.as_view(template_name='Registration/password_reset_form.html',
@@ -39,4 +40,6 @@ urlpatterns = [
 
     path('reset/done', PasswordResetCompleteView.as_view(template_name='Registration/password_reset_complete.html'),
          name='password_reset_complete'),
+    path('home', views.Home, name="Home"),
+    path('user', views.User, name="User"),
 ]

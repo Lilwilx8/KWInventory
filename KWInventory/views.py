@@ -4,6 +4,7 @@ from django.contrib import messages
 from .forms import UserRegisterForm
 
 
+
 def login(request):
     return render(request, "login.html")
 
@@ -26,3 +27,14 @@ def register(request):
         form = UserRegisterForm()
     context = {'form': form}
     return render(request, "register.html", context)
+
+
+def Home(request):
+    return render(request, 'home.html')
+
+
+def User(request):
+    return render(request, 'user.html')
+
+
+

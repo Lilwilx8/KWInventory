@@ -1,0 +1,29 @@
+
+<div class="modal-dialog" role="document" id="exampleModalLabel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editar cliente: {{ object }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="post" action="{% url 'UpdateCustomer' object.IdCliente %}">
+                {% csrf_token %}
+                <label for="Documento">Documento:</label>
+                {{ form.Documento }}
+                <br>
+                <label for="Nombre">Nombre:</label>
+                {{ form.Nombre }}
+                <br>
+                <label for="Apellido">Apellido:</label>
+                {{ form.Apellido }}
+                <br>
+                <label for="Telefono">Telefonoo</label>
+                {{ form.Telefono }}
+                <br>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Atras</button>
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </form>
+
+        </div>
+    </div>
+</div>

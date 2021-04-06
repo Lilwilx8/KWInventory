@@ -1,22 +1,25 @@
 {% extends "padre.html" %}
 
 
+{% block title %}
+    Confirmar
+{% endblock %}
+
 {% block content %}
 
     <div class="modal-dialog" role="document" id="exampleModalLabel" tabindex="-1" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-content">
+
             <div class="modal-body">
                 <form method="post">
                     {% csrf_token %}
-                    <label for=""> Email:</label>
-                    {{ form.email}}
-
-                    <button type="submit" class="btn btn-success">Enviar</button>
+                    <p><strong>¿Desea eliminar el producto {{ object }}?</strong></p>
+                    <br>
+                    <a href="{% url 'Products' %}" class="btn btn-success">Cacelar</a>
+                    <button type="submit" class="btn btn-danger">Confirmar</button>
                 </form>
             </div>
         </div>
     </div>
-
-
 {% endblock %}

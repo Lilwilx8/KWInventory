@@ -1,151 +1,146 @@
 from django.shortcuts import render, redirect
-from django.views import View
+from django.urls import reverse_lazy
+from django.views.generic import UpdateView, CreateView, DeleteView, View
 
 from .forms import ProductoForm, CLienteForm, VentaForm
-from .models import Producto, Cliente, Venta, VentaProducto
+from .models import Producto, Cliente, Venta
 
 
 # Create your views here.
-#
-# class products(View):
-#     model = Producto
-#     form_clas = ProductoForm
-#     template_name = 'Inventory/products.html'
-#
-#     def get_queryset(self):
-#         return self.model.objects.first(estado = True)
-#
-#     def get_context_data(self, **kwargs):
-#         contexto = {}
-#         contexto['productos'] = self.get_queryset()
-#         contexto['from'] = self.form_clas
-#         return contexto
-#
-#     def get(self, request, *args, **kwargs):
-#         return render(request, self.template_name, self.get_context_data())
-#
-#     def post(self, request, *args, **kwargs):
-#         form = self.form_clas(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('Products')
-#         else:
-#             form = self.form_clas()
-#             return render(request, self.template_name, self.get_context_data())
+
+class Products(View):
+    model = Producto
+    form_class = ProductoForm
+    template_name = 'Inventory/products.html'
+
+    def get_queryset(self):
+        return self.model.objects.all()
+
+    def get_context_data(self, **kwargs):
+        contexto = {}
+        contexto['productos'] = self.get_queryset()
+        contexto['form'] = self.form_class
+        return contexto
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, self.get_context_data())
 
 
-
-def products(request):
-    producto = Producto.objects.all()
-    form = ProductoForm()
-    contexto = {
-        'form': form,
-        'producto': producto
-    }
-    print(producto)
-    if request.method == 'POST':
-        form = ProductoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('Products')
-    return render(request, 'Inventory/products.html', contexto)
+class AddProduct(CreateView):
+    model = Producto
+    form_class = ProductoForm
+    template_name = 'Inventory/addProduct.html'
+    success_url = reverse_lazy('Products')
 
 
-def EditProduct(request, Id):
-    producto = Producto.objects.get(IdProducto=Id)
-    if request.method == 'GET':
-        form = ProductoForm(instance=producto)
+class UpdateProduct(UpdateView):
+    model = Producto
+    form_class = ProductoForm
+    template_name = 'Inventory/updateProduct.html'
+    success_url = reverse_lazy('Products')
 
-        contexto = {
-            'form': form
-        }
-    else:
-        form = ProductoForm(request.POST, instance=producto)
-        if form.is_valid():
-            form.save()
-            return redirect('Products')
-
-    return render(request, 'Inventory/EditProduct.html', contexto)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['productos'] = Producto.objects.all()
+        return context
 
 
-def DeleteProduct(request, Id):
-    producto = Producto.objects.get(IdProducto=Id)
-    producto.delete()
-    return redirect('Products')
+class DeleteProduct(DeleteView):
+    model = Producto
+
+    def post(self, request, pk, *args, **kwargs):
+        object = Producto.objects.get(IdProducto=pk)
+        object.delete()
+        return redirect('Products')
 
 
-def customers(request):
-    form = CLienteForm
-    cliente = Cliente.objects.all()
-    contexto = {
-        'cliente': cliente,
-        'form': form
-    }
-    if request.method == 'POST':
-        form = CLienteForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('Customers')
-    print(cliente)
-    return render(request, 'Inventory/customers.html', contexto)
+class Customers(View):
+    model = Cliente
+    form_class = CLienteForm
+    template_name = 'Inventory/customers.html'
 
-def EditCustomer(request, Id):
-    cliente = Cliente.objects.get(IdCliente=Id)
-    if request.method == 'GET':
-        form = CLienteForm(instance=cliente)
-        contexto = {
-            'form': form
-        }
-    else:
-        form = CLienteForm(request.POST, instance=cliente)
-        if form.is_valid():
-            form.save()
-            return redirect('Customers')
+    def get_queryset(self):
+        return self.model.objects.all()
 
-    return render(request, 'Inventory/EditCustomer.html', contexto)
+    def get_context_data(self, **kwargs):
+        contexto = {}
+        contexto['clientes'] = self.get_queryset()
+        contexto['form'] = self.form_class
+        return contexto
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, self.get_context_data())
 
 
-def DeleteCustomer(request, Id):
-    cliente = Cliente.objects.get(IdCliente=Id)
-    cliente.delete()
-    return redirect('Customers')
+class AddCustomer(CreateView):
+    model = Cliente
+    form_class = CLienteForm
+    template_name = 'Inventory/addCustomer.html'
+    success_url = reverse_lazy('Customers')
 
 
-def sales(request):
-    venta = Venta.objects.all()
-    form = VentaForm
-    contexto = {
-        'venta': venta,
-        'form': form
-    }
-    if request.method == 'POST':
-        form = VentaForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('Sales')
-    print(venta)
-    return render(request, 'Inventory/sales.html', contexto)
+class UpdateCustomer(UpdateView):
+    model = Cliente
+    form_class = CLienteForm
+    template_name = 'Inventory/updateCustomer.html'
+    success_url = reverse_lazy('Customers')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['clientes'] = Producto.objects.all()
+        return context
 
 
-def EditSale(request, Id):
-    venta = Venta.objects.get(IdVenta=Id)
-    if request.method == 'GET':
-        form = VentaForm(instance=venta)
-        contexto = {
-            'form': form
-        }
-    else:
-        form = VentaForm(request.POST, instance=venta)
-        if form.is_valid():
-            form.save()
-            return redirect('Sales')
+class DeleteCustomer(DeleteView):
+    model = Cliente
 
-    return render(request, 'Inventory/EditSale.html', contexto)
+    def post(self, request, pk, *args, **kwargs):
+        object = Cliente.objects.get(IdCliente=pk)
+        object.delete()
+        return redirect('Customers')
 
 
-def DeleteSale(request, Id):
-    venta = Venta.objects.get(IdVenta=Id)
-    venta.delete()
-    return redirect('Sales')
+class Sales(View):
+    model = Venta
+    form_class = VentaForm
+    template_name = 'Inventory/sales.html'
+
+    def get_queryset(self):
+        return self.model.objects.all()
+
+    def get_context_data(self, **kwargs):
+        contexto = {}
+        contexto['ventas'] = self.get_queryset()
+        contexto['form'] = self.form_class
+        return contexto
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, self.get_context_data())
 
 
+class AddSale(CreateView):
+    model = Venta
+    form_class = VentaForm
+    template_name = 'Inventory/addSale.html'
+    success_url = reverse_lazy('Sales')
+
+
+class UpdateSale(UpdateView):
+    model = Venta
+    form_class = VentaForm
+    template_name = 'Inventory/updateSale.html'
+    success_url = reverse_lazy('Sales')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['ventas'] = Producto.objects.all()
+        return context
+
+
+class DeleteSale(DeleteView):
+    model = Venta
+
+    def post(self, request, pk, *args, **kwargs):
+        object = Venta.objects.get(IdVenta=pk)
+        object.delete()
+        return redirect('Sales')

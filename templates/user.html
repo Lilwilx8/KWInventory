@@ -1,0 +1,58 @@
+{% extends "padre.html" %}
+
+
+{% block title %}
+    Usuario
+{% endblock %}
+
+{% block content %}
+
+    <html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" lang="es">
+        {% load static %}
+
+
+        <title>Registro</title>
+    </head>
+    <body>
+    {% load static %}
+    <div class="container-login100-form-btn">
+        <div class="wrap-login100">
+            <form class="login100-form validate-form" method="post">
+                {% csrf_token %}
+
+                <span class="login100-form-title p-b-26">
+                            {{ user.get_username }}
+                        </span>
+                <span class="login100-form-title p-b-26">
+                            <img width="50%" style="" src="{% static 'Login/img/user.png' %}" alt="kiwi">
+                </span>
+
+                <label for="">Usuario:</label>
+                <label>
+                    <input class="form-control" type="text" readonly value="{{ user.get_username }}">
+                </label>
+                <label for="">Nombre:</label>
+                <label>
+                    <input class="form-control" type="text" readonly value="">
+                </label>
+                <label for="">Apellido:</label>
+                <label>
+                    <input class="form-control" type="text" readonly value="">
+                </label>
+                <br>
+                <br>
+                <a href="" disabled="True" class="btn btn-dark">Cambiar Contraseña</a>
+
+
+            </form>
+        </div>
+    </div>
+
+
+    </body>
+    </html>
+
+    <script src="{% static 'Login/js/main.js' %}"></script>
+{% endblock %}

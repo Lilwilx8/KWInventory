@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 
 # Create your models here.
@@ -94,6 +95,14 @@ class VentaProducto(models.Model):
 
     def __str__(self):
         return str(self.Venta)
+
+class Roles(models.Model):
+    Nombre = models.CharField(max_length=50)
+
+    def __str__(self):
+        return str(self.Nombre)
+
+
 
 
 
